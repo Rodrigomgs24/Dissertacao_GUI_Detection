@@ -1,0 +1,23 @@
+# Data pipeline
+requests
+gdown
+pyyaml
+Pillow
+
+# Deep learning
+torch
+torchvision
+ultralytics
+
+# Evaluation
+pycocotools
+
+# Visualization
+matplotlib
+tqdm
+
+# Notebooks
+jupyter
+
+# Legacy (Wave-UI download)
+# datasets

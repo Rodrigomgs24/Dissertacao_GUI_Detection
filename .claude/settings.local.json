@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python data/download_dataset.py)",
+      "Bash(pip install datasets)"
+    ]
+  }
+}
