@@ -16,7 +16,7 @@ Three detection approaches are compared:
 
 | Approach | Type | Implementation |
 |----------|------|----------------|
-| [**YOLO**](models/yolo/) (v8, v10, v11) | Single-stage detector | Ultralytics framework |
+| [**YOLO**](models/yolo/) (v8, v10, v26) | Single-stage detector | Ultralytics framework |
 | [**Faster R-CNN**](models/faster-rcnn/) | Two-stage detector | ResNet-50 + FPN (torchvision) |
 | [**OpenCV**](models/opencv/) | Classical computer vision | Edge detection baseline |
 
@@ -40,8 +40,8 @@ A cross-platform dataset combining **mobile** and **web** UI screenshots, with *
 Button · Text · Image · Icon · Input · Link · Checkbox · Toggle · Toolbar · Navigation · Modal · Tab
 ```
 
-> The dataset is not included in this repository due to size (~30 GB).
-> See [`data/README.md`](data/README.md) for download and preparation instructions.
+> The dataset is published on Zenodo (DOI: [10.5281/zenodo.19195885](https://doi.org/10.5281/zenodo.19195885)).
+> Alternatively, see [`data/README.md`](data/README.md) to reproduce it from the original sources.
 
 ---
 
