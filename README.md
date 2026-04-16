@@ -16,7 +16,7 @@ Three detection approaches are compared:
 
 | Approach | Type | Implementation |
 |----------|------|----------------|
-| [**YOLO**](models/yolo/) (v8, v10, v26) | Single-stage detector | Ultralytics framework |
+| [**YOLO**](models/yolo/) (v8n, v10n, v26n) | Single-stage detector | Ultralytics framework |
 | [**Faster R-CNN**](models/faster-rcnn/) | Two-stage detector | ResNet-50 + FPN (torchvision) |
 | [**OpenCV**](models/opencv/) | Classical computer vision | Edge detection baseline |
 
@@ -60,7 +60,7 @@ Dissertacao_GUI_Detection/
 │   └── REPRODUCIBILITY.md              Full pipeline documentation
 │
 ├── models/                         ← Model implementations
-│   ├── yolo/                            YOLO v8, v10, v11
+│   ├── yolo/                            YOLO v8n, v10n, v26n
 │   │   ├── train.ipynb                       Train all 3 variants
 │   │   └── inference.ipynb                   Inference with best model
 │   │

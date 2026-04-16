@@ -1,24 +1,3 @@
-"""
-Prepare the WebUI dataset for GUI element detection in YOLO format.
-
-Processes the WebUI dataset (CHI 2023) which contains web UI screenshots
-at multiple viewports with bounding boxes extracted from accessibility trees.
-
-Prerequisites:
-    1. Download the WebUI dataset from https://uimodeling.github.io/
-    2. Run the generate_dataset_web.py script from the WebUI repo to produce
-       processed JSON files with labels + contentBoxes
-    OR
-    3. Use the raw data directly (axtree.json.gz + screenshot files)
-
-Usage:
-    # From processed WebUI data (labels + contentBoxes JSON files):
-    python prepare_webui.py --webui_dir /path/to/webui/processed --output_dir ./unified/webui
-
-    # From raw WebUI sample/crawl data:
-    python prepare_webui.py --raw --webui_dir /path/to/webui/data --output_dir ./unified/webui
-"""
-
 import os
 import sys
 import json
@@ -52,21 +31,11 @@ VIEWPORT_SIZES = {
 
 
 def load_gzip_json(path):
-    """Load a gzip-compressed JSON file."""
     with gzip.open(path, 'rt', encoding='utf-8') as f:
         return json.load(f)
 
 
 def extract_elements_from_raw(axtree_data, bb_data):
-    """
-    Extract GUI elements by joining axtree nodes with bounding boxes.
-
-    axtree_data: dict with 'nodes' list (Chrome DevTools Protocol format).
-                 Each node has 'role', 'backendDOMNodeId', etc.
-    bb_data:     dict mapping DOM node ID (str) → {x, y, width, height}.
-
-    Returns list of (role_value, [x1, y1, x2, y2]).
-    """
     elements = []
 
     nodes = axtree_data.get("nodes", [])
@@ -82,7 +51,6 @@ def extract_elements_from_raw(axtree_data, bb_data):
         if not role_value:
             continue
 
-        # Join with bounding box via backendDOMNodeId
         dom_id = str(node.get("backendDOMNodeId", ""))
         if dom_id not in bb_data:
             continue
@@ -102,16 +70,6 @@ def extract_elements_from_raw(axtree_data, bb_data):
 
 
 def convert_processed_webui(webui_dir, output_dir):
-    """
-    Convert pre-processed WebUI data to YOLO format.
-
-    Expects JSON files with structure:
-    {
-        "labels": [["button"], ["link", "navigation"], ...],
-        "contentBoxes": [[x1, y1, x2, y2], ...],
-        "key_name": "device-resolution"
-    }
-    """
     json_files = sorted(Path(webui_dir).glob("**/*.json"))
     print(f"Found {len(json_files)} JSON annotation files")
 
@@ -199,16 +157,6 @@ def convert_processed_webui(webui_dir, output_dir):
 
 
 def convert_raw_webui(webui_dir, output_dir):
-    """
-    Convert raw WebUI crawl data to YOLO format.
-
-    Expects directory structure:
-    webui_dir/
-        {crawl_id}/
-            {device}-axtree.json.gz   (accessibility tree — flat node list)
-            {device}-bb.json.gz       (bounding boxes keyed by DOM node ID)
-            {device}-screenshot.webp  (screenshot)
-    """
     crawl_dirs = [d for d in Path(webui_dir).iterdir() if d.is_dir()]
     print(f"Found {len(crawl_dirs)} crawl directories")
 
@@ -307,13 +255,11 @@ def convert_raw_webui(webui_dir, output_dir):
 
 
 def _get_dimensions_from_key(key_name, img_path):
-    """Get image dimensions from viewport key or by reading the image."""
-    # Try matching known viewport keys
+    for vp_key, (w, h, scale) in VIEWPORT_SIZES.items():
     for vp_key, (w, h, scale) in VIEWPORT_SIZES.items():
         if vp_key in key_name:
             return w * scale, h * scale
 
-    # Fallback: try to read image dimensions
     try:
         from PIL import Image
         with Image.open(img_path) as img:
@@ -324,7 +270,6 @@ def _get_dimensions_from_key(key_name, img_path):
 
 def _save_yolo_dataset(screen_data, output_dir, class_counter, total_elements,
                        prefix="webui"):
-    """Save processed data as YOLO dataset with train/val/test splits."""
     print(f"\nValid screens with annotations: {len(screen_data)}")
     print(f"Total elements extracted: {total_elements}")
 

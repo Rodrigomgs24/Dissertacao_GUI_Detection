@@ -1,6 +1,6 @@
 # YOLO — Single-Stage Detection
 
-YOLOv8, YOLOv10, and YOLOv11 for GUI element detection ([Ultralytics](https://docs.ultralytics.com/)).
+YOLOv8, YOLOv10, and v26 (yolo26n) for GUI element detection ([Ultralytics](https://docs.ultralytics.com/)).
 
 | Notebook | Description |
 |---|---|

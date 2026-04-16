@@ -1,9 +1,3 @@
-"""
-Download and extract the WebUI-7k-balanced dataset.
-
-Uses gdown to download from Google Drive and 7z to extract multi-part zips.
-"""
-
 import os
 import sys
 import glob
@@ -33,7 +27,6 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "webui_raw")
 
 
 def find_7z():
-    """Find a working 7z executable."""
     for path in SEVEN_ZIP_PATHS:
         try:
             result = subprocess.run(

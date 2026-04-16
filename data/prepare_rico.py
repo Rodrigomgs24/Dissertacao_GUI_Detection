@@ -1,26 +1,3 @@
-"""
-Prepare the Rico dataset for GUI element detection in YOLO format.
-
-Downloads two files from interactionmining.org:
-  1. unique_uis.tar.gz (6 GB) — 66K screenshots + view hierarchies
-  2. semantic_annotations.zip (150 MB) — componentLabel annotations
-
-Then merges them: screenshots from (1) + componentLabel from (2),
-and converts to YOLO annotation format.
-
-Rico images are 1440x2560 pixels (Android screenshots).
-
-Usage:
-    # Download + convert in one step:
-    python prepare_rico.py --download --convert
-
-    # Download only:
-    python prepare_rico.py --download
-
-    # Convert only (if already downloaded):
-    python prepare_rico.py --convert
-"""
-
 import os
 import sys
 import json
@@ -63,7 +40,6 @@ RICO_DIR = os.path.join(BASE_DIR, "rico")
 
 
 def download_file(url, dest_path, description=""):
-    """Download a file with progress bar."""
     import requests
 
     if os.path.exists(dest_path):
@@ -93,7 +69,6 @@ def download_file(url, dest_path, description=""):
 
 
 def download_rico():
-    """Download Rico screenshots and semantic annotations."""
     os.makedirs(RICO_DIR, exist_ok=True)
 
     screenshots_dir = os.path.join(RICO_DIR, "combined")
@@ -157,12 +132,6 @@ def download_rico():
 
 
 def extract_elements_from_tree(node, elements=None):
-    """
-    Recursively traverse Rico view hierarchy tree.
-    Extract elements that have a valid componentLabel.
-
-    Returns list of (componentLabel, [left, top, right, bottom])
-    """
     if elements is None:
         elements = []
 
@@ -193,7 +162,6 @@ def extract_elements_from_tree(node, elements=None):
 
 
 def bounds_to_yolo(bounds, img_w=RICO_WIDTH, img_h=RICO_HEIGHT):
-    """Convert [left, top, right, bottom] pixel bounds to YOLO normalized format."""
     left, top, right, bottom = bounds
     center_x = max(0.0, min(1.0, (left + right) / 2.0 / img_w))
     center_y = max(0.0, min(1.0, (top + bottom) / 2.0 / img_h))
@@ -203,12 +171,6 @@ def bounds_to_yolo(bounds, img_w=RICO_WIDTH, img_h=RICO_HEIGHT):
 
 
 def convert_rico_to_yolo():
-    """
-    Convert Rico data to YOLO format.
-
-    Looks for semantic annotations first (have componentLabel).
-    Falls back to view hierarchies in combined/ if no semantic annotations.
-    """
     screenshots_dir = os.path.join(RICO_DIR, "combined")
     semantic_dir = os.path.join(RICO_DIR, "semantic_annotations")
     output_dir = os.path.join(BASE_DIR, "unified", "rico")

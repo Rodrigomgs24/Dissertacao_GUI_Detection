@@ -2,7 +2,24 @@
   "permissions": {
     "allow": [
       "Bash(python data/download_dataset.py)",
-      "Bash(pip install datasets)"
+      "Bash(pip install datasets)",
+      "Bash(python3 -c ':*)",
+      "Bash(python3 /tmp/fix_notebook.py)",
+      "Bash(python3 fix_notebook.py)",
+      "Bash(python3 \"D:/mestrado/Dissertacao_GUI_Detection/fix_notebook.py\")",
+      "Bash(python3 fix_notebook2.py)",
+      "Bash(del \"D:\\\\mestrado\\\\Dissertacao_GUI_Detection\\\\fix_notebook.py\" \"D:\\\\mestrado\\\\Dissertacao_GUI_Detection\\\\fix_notebook2.py\")",
+      "Bash(grep -E \"\\\\.\\(ipynb|py\\)$\")",
+      "Bash(python3 create_evaluation_notebook.py)",
+      "Bash(rm create_evaluation_notebook.py)",
+      "Bash(npm list:*)",
+      "Bash(node create_guide.js)",
+      "Bash(npm install:*)",
+      "Bash(python3 -c \"import os; size = os.path.getsize\\('D:/mestrado/Dissertacao_GUI_Detection/guia_apresentacao.docx'\\); print\\(f'Ficheiro: guia_apresentacao.docx'\\); print\\(f'Tamanho: {size/1024:.1f} KB'\\)\")",
+      "Bash(python3 remove_ai_comments.py)",
+      "Bash(python3 remove_ai_comments2.py)",
+      "Bash(python3 remove_ai_comments3.py)",
+      "Bash(del D:\\\\mestrado\\\\Dissertacao_GUI_Detection\\\\remove_ai_comments.py D:\\\\mestrado\\\\Dissertacao_GUI_Detection\\\\remove_ai_comments2.py D:\\\\mestrado\\\\Dissertacao_GUI_Detection\\\\remove_ai_comments3.py)"
     ]
   }
 }

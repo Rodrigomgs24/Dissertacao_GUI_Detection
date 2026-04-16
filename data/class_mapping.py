@@ -1,11 +1,3 @@
-"""
-Unified class mapping for cross-platform GUI element detection.
-
-Maps Rico (mobile) and WebUI (web) element classes to a common taxonomy
-of 12 classes that exist across both platforms.
-"""
-
-# 12 unified classes for cross-platform GUI detection
 UNIFIED_CLASSES = [
     "Button",
     "Text",
@@ -130,7 +122,6 @@ WEBUI_TO_UNIFIED = {
 
 
 def get_class_id(class_name):
-    """Get the integer ID for a unified class name. Returns None if not found."""
     try:
         return UNIFIED_CLASSES.index(class_name)
     except ValueError:
@@ -138,7 +129,6 @@ def get_class_id(class_name):
 
 
 def map_rico_label(component_label):
-    """Map a Rico componentLabel to (unified_class_name, class_id) or (None, None)."""
     unified = RICO_TO_UNIFIED.get(component_label)
     if unified is None:
         return None, None
@@ -146,7 +136,6 @@ def map_rico_label(component_label):
 
 
 def map_webui_label(aria_role):
-    """Map a WebUI ARIA role to (unified_class_name, class_id) or (None, None)."""
     unified = WEBUI_TO_UNIFIED.get(aria_role)
     if unified is None:
         return None, None

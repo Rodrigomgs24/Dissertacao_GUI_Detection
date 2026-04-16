@@ -1,20 +1,3 @@
-"""
-Merge Rico and WebUI YOLO datasets into a single unified dataset.
-
-Creates a combined dataset with balanced sampling and generates
-the data.yaml configuration file for YOLO training.
-
-Usage:
-    # Merge Rico only (if WebUI not yet available):
-    python merge_datasets.py --rico_dir ./unified/rico
-
-    # Merge both Rico and WebUI:
-    python merge_datasets.py --rico_dir ./unified/rico --webui_dir ./unified/webui
-
-    # Custom output:
-    python merge_datasets.py --rico_dir ./unified/rico --output_dir ./unified/combined
-"""
-
 import os
 import sys
 import shutil
@@ -32,7 +15,6 @@ SEED = 42
 
 
 def count_annotations(labels_dir):
-    """Count annotations per class in a YOLO labels directory."""
     counter = Counter()
     total_images = 0
     total_annotations = 0
@@ -52,11 +34,6 @@ def count_annotations(labels_dir):
 
 
 def merge_split(source_dirs, output_dir, split_name):
-    """
-    Merge a specific split (train/val/test) from multiple source datasets.
-
-    Copies images and labels from each source into the combined output.
-    """
     out_img_dir = os.path.join(output_dir, split_name, "images")
     out_lbl_dir = os.path.join(output_dir, split_name, "labels")
     os.makedirs(out_img_dir, exist_ok=True)
@@ -88,7 +65,6 @@ def merge_split(source_dirs, output_dir, split_name):
 
 
 def generate_data_yaml(output_dir):
-    """Generate data.yaml for YOLO training."""
     yaml_data = {
         "path": os.path.abspath(output_dir),
         "train": "train/images",
